@@ -5,7 +5,7 @@ const sendBtn = document.getElementById("prajwal-ai-send");
 const input = document.getElementById("prajwal-ai-text");
 const messages = document.getElementById("prajwal-ai-messages");
 
-const AI_API_URL = "https://portfolio-ai-backend.vercel.app/api/chat";
+const AI_API_URL = "https://portfolio-ai-backend-black.vercel.app/api/chat";
 
 btn.onclick = () => (chatBox.style.display = "flex");
 closeBtn.onclick = () => (chatBox.style.display = "none");
