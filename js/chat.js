@@ -5,29 +5,33 @@ const sendBtn = document.getElementById("prajwal-ai-send");
 const input = document.getElementById("prajwal-ai-text");
 const messages = document.getElementById("prajwal-ai-messages");
 
+const AI_API_URL = "https://new-one-ecru.vercel.app/api/chat";
+
 btn.onclick = () => (chatBox.style.display = "flex");
 closeBtn.onclick = () => (chatBox.style.display = "none");
 
 sendBtn.onclick = async () => {
   const text = input.value.trim();
   if (!text) return;
+
   addMessage(text, "user");
   input.value = "";
 
-  addMessage("Thinking...", "bot");
+  const thinkingMsg = addMessage("Thinking...", "bot");
 
   try {
-    const res = await fetch("https://new-h9xhd0ind-prajwaln9741s-projects.vercel.app/api/chat", {
+    const res = await fetch(AI_API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: text }),
     });
 
     const data = await res.json();
-    messages.lastElementChild.textContent = data.reply || "⚠️ No reply from AI.";
+    thinkingMsg.textContent = data.reply || "⚠️ No reply from AI.";
+
   } catch (err) {
     console.error(err);
-    messages.lastElementChild.textContent = "⚠️ AI unavailable right now.";
+    thinkingMsg.textContent = "⚠️ AI unavailable right now.";
   }
 };
 
@@ -37,4 +41,5 @@ function addMessage(text, sender) {
   msg.textContent = text;
   messages.appendChild(msg);
   messages.scrollTop = messages.scrollHeight;
+  return msg;
 }
